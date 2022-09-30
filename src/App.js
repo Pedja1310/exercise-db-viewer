@@ -1,6 +1,6 @@
 import { Link, Route, Routes } from "react-router-dom";
 
-import { Box, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 import "./App.css";
 
