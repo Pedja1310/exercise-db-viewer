@@ -7,7 +7,7 @@ const TrainingType = ({ trainingType }) => {
       sx={{
         display: "flex",
         height: { xs: "3rem", sm: "4rem" },
-        width: { xs: "7rem", sm: "8rem", md: "9rem", lg: "11rem" },
+        width: { xs: "8rem", md: "9rem", lg: "11rem" },
         alignItems: "center",
         justifyContent: "center",
         border: "1px solid #f44336",

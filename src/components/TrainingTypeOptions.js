@@ -16,6 +16,7 @@ const TrainingTypeOptions = () => {
           overflowX: "scroll",
           padding: "20px",
           gap: "1rem",
+          width: "100%",
 
           // "&::-webkit-scrollbar": {
           //   display: "none",

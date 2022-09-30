@@ -9,13 +9,7 @@ import ExercisePage from "./pages/ExercisePage";
 
 function App() {
   return (
-    <Container
-      maxWidth="lg"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <Container maxWidth="lg" sx={{ display: "flex", flexDirection: "column" }}>
       <Typography
         as={Link}
         to="/"

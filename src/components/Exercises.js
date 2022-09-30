@@ -1,5 +1,4 @@
 import React from "react";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Box, Typography } from "@mui/material";
 
 import ExerciseCard from "./ExerciseCard";
@@ -19,7 +18,19 @@ const Exercises = () => {
       mt={5}
     >
       <Typography variant="h5">Exercises</Typography>
-      <Grid2 container spacing={2} mt={4}>
+      <Box
+        mt={4}
+        sx={{
+          display: "grid",
+          gap: "1rem",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+          },
+        }}
+      >
         {data.length ? (
           data.map((exercise) => (
             <ExerciseCard exercise={exercise} key={exercise.id} />
@@ -27,7 +38,7 @@ const Exercises = () => {
         ) : (
           <Typography variant="h6">No exercises!</Typography>
         )}
-      </Grid2>
+      </Box>
     </Box>
   );
 };
