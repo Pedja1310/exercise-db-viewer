@@ -1,6 +1,6 @@
 import React from "react";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import ExerciseCard from "./ExerciseCard";
 

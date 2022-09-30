@@ -1,6 +1,6 @@
 import React from "react";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { Card, CardMedia, CardContent, Typography, Grid } from "@mui/material";
+import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const ExerciseCard = ({ exercise }) => {
