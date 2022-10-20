@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { Box, Typography, Pagination } from "@mui/material";
 
 import ExerciseCard from "./ExerciseCard";
 
@@ -12,11 +12,13 @@ import {
 } from "../store/exercisesSlice";
 
 const Exercises = () => {
+  const wrapperRef = useRef(null);
   const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
+
   const { bodyPart } = useSelector((state) => state.exercises);
 
   useEffect(() => {
-    console.log(bodyPart);
     if (bodyPart !== "all" && bodyPart !== "saved") {
       dispatch(getExercisesByBodyPart(bodyPart));
     }
@@ -26,8 +28,22 @@ const Exercises = () => {
     // }
   }, [dispatch, bodyPart]);
 
+  const changePage = (e, value) => {
+    setPage(value);
+    wrapperRef.current.scrollIntoView();
+  };
+
+  const exercisesPerPage = 6;
+  const indexOfLastExercise = page * exercisesPerPage;
+  const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
+  const currentExercises = data.slice(
+    indexOfFirstExercise,
+    indexOfLastExercise
+  );
+
   return (
     <Box
+      ref={wrapperRef}
       sx={{
         display: "flex",
         alignItems: "center",
@@ -50,13 +66,21 @@ const Exercises = () => {
         }}
       >
         {data.length ? (
-          data.map((exercise) => (
+          currentExercises.map((exercise) => (
             <ExerciseCard exercise={exercise} key={exercise.id} />
           ))
         ) : (
           <Typography variant="h6">No exercises!</Typography>
         )}
       </Box>
+      <Pagination
+        count={Math.ceil(data.length / exercisesPerPage)}
+        shape="rounded"
+        color="error"
+        sx={{ mt: "2rem", mb: "2rem" }}
+        page={page}
+        onChange={changePage}
+      />
     </Box>
   );
 };
