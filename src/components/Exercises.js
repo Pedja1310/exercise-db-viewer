@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Typography, Pagination } from "@mui/material";
+import { Box, Typography, Pagination, CircularProgress } from "@mui/material";
 
 import ExerciseCard from "./ExerciseCard";
 
@@ -16,13 +16,15 @@ const Exercises = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
 
-  const { bodyPart } = useSelector((state) => state.exercises);
+  const { bodyPart, exercises, loading } = useSelector(
+    (state) => state.exercises
+  );
 
   useEffect(() => {
-    if (bodyPart !== "all" && bodyPart !== "saved") {
-      dispatch(getExercisesByBodyPart(bodyPart));
-    }
-
+    setPage(1);
+    // if (bodyPart !== "all" && bodyPart !== "saved") {
+    //   dispatch(getExercisesByBodyPart(bodyPart));
+    // }
     // if (bodyPart === "all") {
     //   dispatch(getAllExercises());
     // }
@@ -33,7 +35,7 @@ const Exercises = () => {
     wrapperRef.current.scrollIntoView();
   };
 
-  const exercisesPerPage = 6;
+  const exercisesPerPage = 8;
   const indexOfLastExercise = page * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = data.slice(
@@ -52,27 +54,31 @@ const Exercises = () => {
       mt={5}
     >
       <Typography variant="h5">Exercises</Typography>
-      <Box
-        mt={4}
-        sx={{
-          display: "grid",
-          gap: "1rem",
-          gridTemplateColumns: {
-            xs: "1fr",
-            sm: "repeat(2, 1fr)",
-            md: "repeat(3, 1fr)",
-            lg: "repeat(4, 1fr)",
-          },
-        }}
-      >
-        {data.length ? (
-          currentExercises.map((exercise) => (
-            <ExerciseCard exercise={exercise} key={exercise.id} />
-          ))
-        ) : (
-          <Typography variant="h6">No exercises!</Typography>
-        )}
-      </Box>
+      {loading ? (
+        <CircularProgress color="error" sx={{ mt: "2rem", mb: "2rem" }} />
+      ) : (
+        <Box
+          mt={4}
+          sx={{
+            display: "grid",
+            gap: "1rem",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+              lg: "repeat(4, 1fr)",
+            },
+          }}
+        >
+          {currentExercises.length ? (
+            currentExercises.map((exercise) => (
+              <ExerciseCard exercise={exercise} key={exercise.id} />
+            ))
+          ) : (
+            <Typography variant="h6">No exercises found!</Typography>
+          )}
+        </Box>
+      )}
       <Pagination
         count={Math.ceil(data.length / exercisesPerPage)}
         shape="rounded"
