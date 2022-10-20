@@ -1,9 +1,14 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
+import { Box, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { changeBodyPart } from "../store/exercisesSlice";
 
 const TrainingType = ({ trainingType }) => {
+  const dispatch = useDispatch();
+
   return (
     <Box
+      onClick={() => dispatch(changeBodyPart(trainingType))}
       sx={{
         display: "flex",
         height: { xs: "3rem", sm: "4rem" },

@@ -1,7 +1,22 @@
 import { Box, TextField, Button, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { searchExercisesByName } from "../store/exercisesSlice";
 
 const SearchBar = () => {
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(searchExercisesByName(query));
+  };
+
   return (
     <Stack mt={5} alignItems="center">
       <Typography variant="h6" sx={{ textAlign: "center" }}>
@@ -15,8 +30,11 @@ const SearchBar = () => {
             width: { xs: "18.75rem", sm: "27rem", md: "40rem" },
           }}
           placeholder="Search exercise"
+          onChange={handleChange}
+          onKeyPress={(e) => (e.key === "Enter" ? handleSubmit(e) : null)}
         />
         <Button
+          onClick={handleSubmit}
           variant="contained"
           color="error"
           sx={{

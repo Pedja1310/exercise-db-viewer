@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
 import ExerciseCard from "./ExerciseCard";
 
 import { data } from "../utils/developmentData";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  getAllExercises,
+  getExercisesByBodyPart,
+} from "../store/exercisesSlice";
 
 const Exercises = () => {
-  // const data = [];
+  const dispatch = useDispatch();
+  const { bodyPart } = useSelector((state) => state.exercises);
+
+  useEffect(() => {
+    console.log(bodyPart);
+    if (bodyPart !== "all" && bodyPart !== "saved") {
+      dispatch(getExercisesByBodyPart(bodyPart));
+    }
+
+    // if (bodyPart === "all") {
+    //   dispatch(getAllExercises());
+    // }
+  }, [dispatch, bodyPart]);
 
   return (
     <Box

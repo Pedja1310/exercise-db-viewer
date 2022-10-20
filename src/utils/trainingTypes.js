@@ -1,5 +1,6 @@
 const trainignTypes = [
   "all",
+  "saved",
   "back",
   "cardio",
   "chest",

@@ -17,10 +17,6 @@ const TrainingTypeOptions = () => {
           padding: "20px",
           gap: "1rem",
           width: "100%",
-
-          // "&::-webkit-scrollbar": {
-          //   display: "none",
-          // },
         }}
       >
         {trainignTypes.map((trainingType, id) => (
