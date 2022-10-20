@@ -9,7 +9,7 @@ const ExerciseCard = ({ exercise }) => {
         maxWidth: "100%",
         textDecoration: "none",
         color: "#000",
-        border: ".5px solid #f44336",
+        border: ".5px solid #d32f2f",
         borderRadius: "5px",
       }}
       as={Link}
