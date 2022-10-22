@@ -39,17 +39,22 @@ const Exercises = () => {
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
 
   let currentExercises;
+  let count;
 
   if (bodyPart === "saved") {
     currentExercises = savedExercises.slice(
       indexOfFirstExercise,
       indexOfLastExercise
     );
+
+    count = Math.ceil(savedExercises.length / exercisesPerPage);
   } else {
     currentExercises = exercises.slice(
       indexOfFirstExercise,
       indexOfLastExercise
     );
+
+    count = Math.ceil(exercises.length / exercisesPerPage);
   }
 
   return (
@@ -89,7 +94,7 @@ const Exercises = () => {
         </Box>
       )}
       <Pagination
-        count={Math.ceil(exercises.length / exercisesPerPage)}
+        count={count}
         shape="rounded"
         color="error"
         sx={{ mt: "2rem", mb: "2rem" }}
