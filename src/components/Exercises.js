@@ -45,14 +45,11 @@ const Exercises = () => {
       indexOfFirstExercise,
       indexOfLastExercise
     );
-
-    console.log(currentExercises);
   } else {
     currentExercises = exercises.slice(
       indexOfFirstExercise,
       indexOfLastExercise
     );
-    console.log(currentExercises);
   }
 
   return (

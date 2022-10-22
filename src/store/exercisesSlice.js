@@ -88,7 +88,6 @@ const exercisesSlice = createSlice({
     });
     builder.addCase(searchExercisesByName.fulfilled, (state, action) => {
       state.exercises = [...action.payload];
-      console.log(action.payload);
       state.loading = false;
     });
     builder.addCase(searchExercisesByName.pending, (state, action) => {
