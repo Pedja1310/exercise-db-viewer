@@ -3,7 +3,6 @@ import { Box, Typography, Pagination, CircularProgress } from "@mui/material";
 
 import ExerciseCard from "./ExerciseCard";
 
-import { data } from "../utils/developmentData";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -16,18 +15,18 @@ const Exercises = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
 
-  const { bodyPart, exercises, loading } = useSelector(
+  const { bodyPart, exercises, loading, savedExercises } = useSelector(
     (state) => state.exercises
   );
 
   useEffect(() => {
     setPage(1);
-    // if (bodyPart !== "all" && bodyPart !== "saved") {
-    //   dispatch(getExercisesByBodyPart(bodyPart));
-    // }
-    // if (bodyPart === "all") {
-    //   dispatch(getAllExercises());
-    // }
+    if (bodyPart !== "all" && bodyPart !== "saved") {
+      dispatch(getExercisesByBodyPart(bodyPart));
+    }
+    if (bodyPart === "all") {
+      dispatch(getAllExercises());
+    }
   }, [dispatch, bodyPart]);
 
   const changePage = (e, value) => {
@@ -38,10 +37,23 @@ const Exercises = () => {
   const exercisesPerPage = 8;
   const indexOfLastExercise = page * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  const currentExercises = data.slice(
-    indexOfFirstExercise,
-    indexOfLastExercise
-  );
+
+  let currentExercises;
+
+  if (bodyPart === "saved") {
+    currentExercises = savedExercises.slice(
+      indexOfFirstExercise,
+      indexOfLastExercise
+    );
+
+    console.log(currentExercises);
+  } else {
+    currentExercises = exercises.slice(
+      indexOfFirstExercise,
+      indexOfLastExercise
+    );
+    console.log(currentExercises);
+  }
 
   return (
     <Box
@@ -80,7 +92,7 @@ const Exercises = () => {
         </Box>
       )}
       <Pagination
-        count={Math.ceil(data.length / exercisesPerPage)}
+        count={Math.ceil(exercises.length / exercisesPerPage)}
         shape="rounded"
         color="error"
         sx={{ mt: "2rem", mb: "2rem" }}

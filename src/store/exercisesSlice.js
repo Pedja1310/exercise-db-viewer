@@ -46,10 +46,29 @@ export const searchExercisesByName = createAsyncThunk(
 
 const exercisesSlice = createSlice({
   name: "exercises",
-  initialState: { bodyPart: "all", exercises: [], loading: false, error: "" },
+  initialState: {
+    bodyPart: "all",
+    exercises: [],
+    loading: false,
+    error: "",
+    savedExercises: JSON.parse(localStorage.getItem("saved")) || [],
+  },
   reducers: {
     changeBodyPart: (state, action) => {
       state.bodyPart = action.payload;
+    },
+    toggleSavedExercise: (state, action) => {
+      const savedExerciseIndex = state.savedExercises.findIndex(
+        (ex) => action.payload.id === ex.id
+      );
+
+      if (savedExerciseIndex > -1) {
+        state.savedExercises.splice(savedExerciseIndex, 1);
+        localStorage.setItem("saved", JSON.stringify(state.savedExercises));
+      } else {
+        state.savedExercises.push(action.payload);
+        localStorage.setItem("saved", JSON.stringify(state.savedExercises));
+      }
     },
   },
   extraReducers: (builder) => {
@@ -80,6 +99,6 @@ const exercisesSlice = createSlice({
 
 const { actions, reducer } = exercisesSlice;
 
-export const { changeBodyPart } = actions;
+export const { changeBodyPart, toggleSavedExercise } = actions;
 
 export default reducer;
