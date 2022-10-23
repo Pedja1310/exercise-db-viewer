@@ -10,32 +10,31 @@ import {
   getExercisesByBodyPart,
 } from "../store/exercisesSlice";
 
-const Exercises = () => {
+const Exercises = ({ paginationPage, setPaginationPage }) => {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
-  const [page, setPage] = useState(1);
 
   const { bodyPart, exercises, loading, savedExercises } = useSelector(
     (state) => state.exercises
   );
 
   useEffect(() => {
-    setPage(1);
+    setPaginationPage(1);
     if (bodyPart !== "all" && bodyPart !== "saved") {
       dispatch(getExercisesByBodyPart(bodyPart));
     }
     if (bodyPart === "all") {
       dispatch(getAllExercises());
     }
-  }, [dispatch, bodyPart]);
+  }, [dispatch, bodyPart, setPaginationPage]);
 
   const changePage = (e, value) => {
-    setPage(value);
+    setPaginationPage(value);
     wrapperRef.current.scrollIntoView();
   };
 
   const exercisesPerPage = 8;
-  const indexOfLastExercise = page * exercisesPerPage;
+  const indexOfLastExercise = paginationPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
 
   let currentExercises;
@@ -98,7 +97,7 @@ const Exercises = () => {
         shape="rounded"
         color="error"
         sx={{ mt: "2rem", mb: "2rem" }}
-        page={page}
+        page={paginationPage}
         onChange={changePage}
       />
     </Box>

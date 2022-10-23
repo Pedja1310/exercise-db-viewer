@@ -1,46 +1,45 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const fetchOptions = {
-  method: "GET",
+const config = {
   headers: {
     "X-RapidAPI-Key": "7d8a3a67c8msh01dc576395d4f59p1e4419jsnce771175719a",
-    "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
   },
 };
 
 export const getAllExercises = createAsyncThunk(
   "exercises/fetchAll",
   async () => {
-    const response = await fetch(
+    const response = await axios.get(
       "https://exercisedb.p.rapidapi.com/exercises",
-      fetchOptions
+      config
     );
 
-    return response.json();
+    return response.data;
   }
 );
 
 export const getExercisesByBodyPart = createAsyncThunk(
   "exercises/fetchByBodyPart",
   async (bodyPart) => {
-    const response = await fetch(
+    const response = await axios.get(
       `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
-      fetchOptions
+      config
     );
 
-    return response.json();
+    return response.data;
   }
 );
 
 export const searchExercisesByName = createAsyncThunk(
   "exercises/searchByName",
   async (query) => {
-    const response = await fetch(
+    const response = await axios.get(
       `https://exercisedb.p.rapidapi.com/exercises/name/${query}`,
-      fetchOptions
+      config
     );
 
-    return response.json();
+    return response.data;
   }
 );
 
