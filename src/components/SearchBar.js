@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { searchExercisesByName } from "../store/exercisesSlice";
 
-const SearchBar = () => {
+const SearchBar = ({ setPaginationPage }) => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
 
@@ -15,6 +15,7 @@ const SearchBar = () => {
     e.preventDefault();
 
     dispatch(searchExercisesByName(query));
+    setPaginationPage(1);
   };
 
   return (
